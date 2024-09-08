@@ -1,4 +1,4 @@
-Para ejecutar ell huego y se maantenga accesible siempre desde consola con el comando MatComInvasion
+Para ejecutar el huego y se mantenga accesible siempre desde consola con el comando MatComInvasion
 se deben ejecutar las siguientes lineas de comando:
 
 -gcc -o MatComInvasion MatComInvasion.c -lm -lncurses
