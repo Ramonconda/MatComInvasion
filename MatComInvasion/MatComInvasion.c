@@ -243,6 +243,7 @@ void move_aliens()
                 aliens[i].spawn_time--;
             }
         }
+
         // Liberando paginas ocupadas por aliens muertos y asignando prioridad respectiva
         for (int i = 0; i < settings.ingame_aliens; i++)
         {
@@ -251,17 +252,12 @@ void move_aliens()
             {
                 // Hallando prioridad mas alta asignada a una pagina para definir la de la pagina actual
                 int max = -1;
-                for (int j = 0; j < settings.ingame_aliens; j++)
-                {
-                    if (alien_out_time[j] != -1 && alien_out_time[j] > max)
-                    {
-                        max = alien_out_time[j];
-                    }
-                }
+
                 // Asignando prioridad a la pagina actual y liberandola
                 alien_out_time[i] = max + 1;
             }
         }
+
         // Ejecutando reemplazo de paginas e insertando aliens nuevos en pantalla
         for (int i = 0; i < settings.alien_amount; i++)
         {
@@ -297,6 +293,7 @@ void move_aliens()
                 }
             }
         }
+
         // Moviendo a los aliens en pantalla a sus respectivas posiciones siguientes
         for (int i = 0; i < settings.ingame_aliens; ++i)
         {
@@ -312,7 +309,7 @@ void move_aliens()
                 ingame_aliens[i].pr = ingame_aliens[i].r;
                 ingame_aliens[i].pc = ingame_aliens[i].c;
 
-                // Verificar si deberia soltar una bomba ahora (los de tipo V no tiran bombas)
+                // Verificar si deberia soltar una bomba ahora (los de tipo Y no tiran bombas)
                 if (ingame_aliens[i].ch != 'Y')
                 {
                     int n_random = 1 + (rand() % 100);
@@ -436,7 +433,7 @@ void write_input()
 {
     // Recibir entrada
     input = getch();
-    // Borrar posicion vieja del tanque
+    // Borrar posicion vieja de la nave
     pthread_mutex_lock(&pointermutex);
     pthread_mutex_lock(&spaceship_mutex);
     move(spaceship.r, spaceship.c);
@@ -719,12 +716,11 @@ void game()
     gameover(gamestate);
 }
 
-
 int main(int argc, char const *argv[])
 {
     // Inicializar biblioteca curses
     initscr();
-    clear();  
+    clear();
     noecho(); // bloqueo la escritura
     cbreak();
     nodelay(stdscr, 1);
@@ -733,7 +729,7 @@ int main(int argc, char const *argv[])
 
     // configuracion inicial
     init_config();
-    
+
     while (1)
     {
         clear();
